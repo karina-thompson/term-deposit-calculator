@@ -12,8 +12,8 @@
 
 This takes 5 inputs:
 
-- Starting deposit amount (in whole $) - handles numbers with/without commas
-- Interest rate (as a %) - handles a percent sign being included or not
+- Starting deposit amount (in whole $)
+- Interest rate (as a % p.a.) - handles a percent sign being included or not
 - Investment term unit - either `months` or `years` - case insensitive
 - Number of months/years
 - How frequently interest will be paid - `monthly`, `quarterly`,`annually` or `at maturity` - case insensitive

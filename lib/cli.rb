@@ -24,10 +24,6 @@ class CLI
     TEXT
   end
 
-  def format_number_with_commas(number)
-    number.to_s.reverse.gsub(/...(?=.)/, '\&,').reverse
-  end
-
   def prompt_and_validate_input(question, validation_func)
     puts question
     input = gets.chomp
@@ -38,6 +34,10 @@ class CLI
       valid, message = method(validation_func).call(input)
     end
     input
+  end
+
+  def format_number_with_commas(number)
+    number.to_s.reverse.gsub(/...(?=.)/, '\&,').reverse
   end
 
   def validate_whole_number(number_str)

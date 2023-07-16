@@ -21,6 +21,16 @@ class Calculator
     @interest_paid_frequency = interest_paid_frequency.downcase
   end
 
+  def calculate_final_balance
+    term_in_years = calculate_investment_term_in_years
+
+    return calculate_at_maturity_final_balance(term_in_years) if @interest_paid_frequency == AT_MATURITY
+
+    calculate_compound_interest_final_balance(term_in_years)
+  end
+
+  private
+
   def calculate_investment_term_in_years
     @investment_term_unit == YEARS ? @investment_term_number : @investment_term_number / 12
   end
@@ -37,13 +47,5 @@ class Calculator
       @start_deposit *
       (1 + rate_decimal / times_interest_paid_per_year)**(times_interest_paid_per_year * term_in_years)
     final_balance.round
-  end
-
-  def calculate_final_balance
-    term_in_years = calculate_investment_term_in_years
-
-    return calculate_at_maturity_final_balance(term_in_years) if @interest_paid_frequency == AT_MATURITY
-
-    calculate_compound_interest_final_balance(term_in_years)
   end
 end
