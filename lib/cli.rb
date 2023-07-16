@@ -5,11 +5,11 @@ require_relative 'calculator'
 class CLI
   def call
     puts 'Welcome to the Simple Term Deposit Calculator'
-    start_deposit = prompt_and_validate_input('What is your starting deposit ($)?', :validate_number)
+    start_deposit = prompt_and_validate_input('What is your starting deposit ($)?', :validate_whole_number)
     interest_rate = prompt_and_validate_input('What is the interest rate (%p.a.),?', :validate_interest_rate)
     investment_term_unit = prompt_and_validate_input('Are you investing for a period of months or years?',
                                                      :validate_investment_term_unit)
-    investment_term_number = prompt_and_validate_input("How many #{investment_term_unit}?", :validate_number)
+    investment_term_number = prompt_and_validate_input("How many #{investment_term_unit}?", :validate_whole_number)
     interest_paid_frequency = prompt_and_validate_input(
       'How frequently will interest be paid? Monthly, Quarterly, Annually or At Maturity?',
       :validate_interest_paid_frequency
@@ -19,8 +19,8 @@ class CLI
     puts <<~TEXT
 
       Final balance: $#{format_number_with_commas(final_balance)}
-      On a starting deposit of $#{format_number_with_commas(start_deposit.tr(',', ''))}, with an interest rate of #{interest_rate.tr('%', '')}% p.a.#{' '}
-      over a period of #{investment_term_number} #{investment_term_unit} with interest paid #{interest_paid_frequency.downcase}
+      On a starting deposit of $#{format_number_with_commas(start_deposit.tr(',', ''))} with an interest rate of #{interest_rate.tr('%', '')}% p.a.#{' '}
+      over a period of #{investment_term_number} #{investment_term_unit.downcase} with interest paid #{interest_paid_frequency.downcase}
     TEXT
   end
 
@@ -40,12 +40,12 @@ class CLI
     input
   end
 
-  def validate_number(number_str)
-    [number_str.to_f.positive?, 'Please enter a valid number']
+  def validate_whole_number(number_str)
+    [number_str.to_i.to_s == number_str, 'Please enter a whole number']
   end
 
   def validate_interest_rate(interest_rate)
-    [validate_number(interest_rate) && (interest_rate.to_f <= 100), 'Please enter a valid interest rate']
+    [interest_rate.to_f.positive? && interest_rate.to_f <= 100, 'Please enter a valid interest rate']
   end
 
   def validate_investment_term_unit(investment_term_unit)

@@ -16,9 +16,9 @@ class Calculator
   def initialize(start_deposit, interest_rate, investment_term_unit, investment_term_number, interest_paid_frequency)
     @start_deposit = BigDecimal(start_deposit.tr(',', ''))
     @interest_rate = BigDecimal(interest_rate.tr('%', ''))
-    @investment_term_unit = investment_term_unit
+    @investment_term_unit = investment_term_unit.downcase
     @investment_term_number = BigDecimal(investment_term_number)
-    @interest_paid_frequency = interest_paid_frequency
+    @interest_paid_frequency = interest_paid_frequency.downcase
   end
 
   def calculate_investment_term_in_years
